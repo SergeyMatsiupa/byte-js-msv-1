@@ -1,0 +1,8 @@
+_work
+.vscode/
+.vscodeignore
+token.txt
+chat_id.txt
+node_modules/
+# dist/
+#JS_module/
