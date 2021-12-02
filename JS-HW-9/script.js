@@ -88,15 +88,25 @@ function task2() {
     }
 
     const ownMap = (arr, cb) => {
-        return arr.reduce((procsdArr, elem) => {
-            return [...procsdArr, cb(elem)]
-        }, []);
+        // return arr.reduce((procsdArr, elem) => {
+        //     return [...procsdArr, cb(elem)]
+        // }, []);
+        const rezArr = [];
+        for (let elem of arr) {
+            rezArr.push(cb(elem));
+        }
+        return rezArr;
     }
 
     const ownFilter = (arr, cb) => {
-        return arr.reduce((procsdArr, elem) => {
-            return cb(elem) ? [...procsdArr, elem] : [...procsdArr];
-        }, []);
+        // return arr.reduce((procsdArr, elem) => {
+        //     return cb(elem) ? [...procsdArr, elem] : [...procsdArr];
+        // }, []);
+        const rezArr = [];
+        for (let elem of arr) {
+            if (cb(elem)) rezArr.push(elem);
+        }
+        return rezArr;
     }
 
 
