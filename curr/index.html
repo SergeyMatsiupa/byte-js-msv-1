@@ -71,6 +71,84 @@
     <strong>Всем привет!</strong> Вы прочитали важное сообщение.
   </div>
 
+
+  <table id="table">
+    aaa
+    <tr>
+      <td>Тест</td>
+    </tr>
+  </table>
+
+  <ul>
+    <li>
+      1
+    </li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+
+  <div id="container">
+    <p>container</p>
+  </div>
+
+  <div id="for_calender">
+
+  </div>
+
+
+  <div id="for_timer">
+    <div>
+      <span>hh</span>
+      :
+      <span>mm</span>
+      :
+      <span>ss</span>
+    </div>
+    <button id="start-timer">
+      Start
+    </button>
+    <button id="stop-timer">
+      Stop
+    </button>
+  </div>
+
+
+  <ul id="ul">
+    <li id="one">1</li>
+    <li id="two">4</li>
+  </ul>
+
+  
+  <table id="tbl_f_sort">
+    <tbody>
+    <tr>
+      <th id="capt_f_sort">Имя</th>
+      <th>Фамилия</th>
+      <th>Возраст</th>
+    </tr>
+    <tr>
+      <td>John</td>
+      <td>Smith</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Pete</td>
+      <td>Brown</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Ann</td>
+      <td>Lee</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    </tbody>
+  </table>
+
   <script>
     // let table = document.body.firstElementChild;
 
@@ -115,14 +193,192 @@
     
 
     function clear(ul) { 
-        console.log(`ul`, ul)
-        for (let node of ul.childNodes) {
-            console.log(`node`, node)
-            node.remove();
-        }
+        console.log(`ul`, ul);
+        [...ul.childNodes].forEach(node => node.remove());
+        // for (let node of ul.children) {
+            // console.log(`node`, node)
+            // node.remove();
+            // ul.removeChild(node);
+        // }
      }
     clear(ul); // очищает список
 
+
+
+    // table.remove();
+
+
+    const createUL = () => {
+      const objUL = document.createElement('ul');
+      document.body.append(objUL);
+      do {
+        const liTxt = prompt('Please enter text for list item').trim();
+        if (liTxt) {
+          objUL.appendChild(document.createElement('li')).append(liTxt);
+        } else {
+          break;
+        }
+      } while(true)
+    }
+    // createUL();
+
+
+
+    let data = {
+  "Рыбы": {
+    "форель": {},
+    "лосось": {}
+  },
+
+  "Деревья": {
+    "Огромные": {
+      "секвойя": {},
+      "дуб": {}
+    },
+    "Цветковые": {
+      "яблоня": {},
+      "магнолия": {}
+    }
+  }
+};
+
+
+  const createTree = (container, data) => {
+    console.log(`container`, container)
+    
+    const objUL = (container.nodeName == 'UL' ) ? container : container.appendChild(document.createElement('ul'));
+
+    for ( let item in data) {
+      if (Object.entries(data[item]).length > 0) {
+          // console.log(`data[item]`, data[item]);
+          console.log(`OUT item`, item);
+          // <ul>
+          //   <li>
+          //     item
+          //       ...<ul> </ul>
+          //   </li>  
+          // </ul>
+        const objLI = objUL.appendChild(document.createElement('li'));
+        objLI.append(item);
+        const objIUL = objLI.appendChild(document.createElement('ul'));
+        createTree(objIUL, data[item]);
+      } else {
+            // console.log(`container`, container);
+            console.log(`IN item`, item);
+          container.appendChild(document.createElement('li')).append(item);
+      }
+    }
+  }
+
+  let container = document.getElementById('container');
+  createTree(container, data); // создаёт дерево в контейнере
+
+
+
+  const addNumbOfNested = (elem) => {
+    
+    const getNumbOfNested = (curLiElem) => {
+      return curLiElem.querySelectorAll('li').length;
+    }
+
+      // console.log(`elem`, elem)
+    const liItems = elem.querySelectorAll('li');
+      console.log(`liItems`, liItems)
+    for (let curLiElem of liItems) {
+      const numbOfNested = getNumbOfNested(curLiElem);
+      curLiElem.firstChild.textContent += numbOfNested ? ` [${numbOfNested}]` : '';
+    }
+  }
+
+
+  addNumbOfNested(document.querySelector('#container > ul'));
+
+
+
+  const createCalendar = (elem, year, month) => {
+    const daysArr = ['пн',	'вт',	'ср',	'чт',	'пт',	'сб',	'вс'];
+    const tblObj = elem.appendChild(document.createElement('table')).appendChild(document.createElement('tbody'));
+    const rowHObj = tblObj.appendChild(document.createElement('tr'));
+    // make a header row
+    for (let i = 0; i < 7; i++) {
+      rowHObj.appendChild(document.createElement('th')).append(daysArr[i]);
+    }
+    let startDate = new Date(year, month - 1, 1);
+    do {
+      let rowObj = tblObj.appendChild(document.createElement('tr'));
+      for ( let i = 0; i < 7; i++) {
+        tdObj = rowObj.appendChild(document.createElement('td'));
+        if ((startDate.getDay() === (i===6 ? 0 : i + 1)) && 
+            (startDate.getMonth() === month-1)) {
+          tdObj.append(startDate.getDate());
+          startDate.setDate(startDate.getDate() + 1);
+        }
+      }
+    } while (startDate.getMonth() === month-1)
+  }
+  
+  createCalendar(document.querySelector('#for_calender'), 2012, 12);
+
+
+  let nIntervId;
+
+  const startTimer = (event) => {
+    
+    const writeTime = () => {
+      const timerDiv = document.querySelector("#for_timer > div")
+      const hhElem = timerDiv.querySelectorAll('span');
+      const nowDate = new Date();
+      hhElem.item(0).textContent = ("0" + nowDate.getHours()).slice(-2);
+      hhElem.item(1).textContent = ("0" + nowDate.getMinutes()).slice(-2);
+      hhElem.item(2).textContent = ("0" + nowDate.getSeconds()).slice(-2);
+    }
+
+    writeTime();
+    nIntervId = setInterval(writeTime, 1000);
+    // console.log(`hhElem`, hhElem);
+  }
+
+  const stopTimer = (event) => {
+    clearInterval(nIntervId);
+  }
+
+  const startTimerButton = document.querySelector("#start-timer");
+  startTimerButton.addEventListener("click", startTimer);
+  const stopTimerButton = document.querySelector("#stop-timer");
+  stopTimerButton.addEventListener("click", stopTimer);
+
+  const li1Elem = document.querySelector("#ul > #one");
+  let liCElem = document.createElement('li');
+  liCElem.innerText = '3';
+  li1Elem.after(liCElem);
+  liCElem = document.createElement('li');
+  liCElem.innerText = '2';
+  li1Elem.after(liCElem);
+    // console.log(`li1Elem`, li1Elem);
+
+
+
+
+  let sortTblToAsc;
+  
+  const doSortTbl = (event) => {
+    const rows = document.querySelectorAll('#tbl_f_sort > tbody > tr');
+      console.log(`rows`, rows);
+    let wasChanges;
+    do {
+      wasChanges = false;
+      for (let i=1; i < rows.length-1; i++) {
+        if (rows.item(i).children[0].innerText[0] > rows.item(i+1).children[0].innerText[0]) {
+          rows.item(i+1).after(rows.item(i));
+          wasChanges = true;
+            console.log('dddd');
+        }
+      } 
+      console.log(`wasChanges`, wasChanges);
+    } while (wasChanges)
+  }
+  
+  document.querySelector('#capt_f_sort').addEventListener('click', doSortTbl);
 
   </script>
 </body>
