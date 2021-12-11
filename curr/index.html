@@ -366,15 +366,17 @@
       console.log(`rows`, rows);
     let wasChanges;
     do {
+      console.log('do - start');
       wasChanges = false;
+      console.log(`wasChanges - beg`, wasChanges);
       for (let i=1; i < rows.length-1; i++) {
         if (rows.item(i).children[0].innerText[0] > rows.item(i+1).children[0].innerText[0]) {
           rows.item(i+1).after(rows.item(i));
-          wasChanges = true;
+          // wasChanges = true;
             console.log('dddd');
         }
       } 
-      console.log(`wasChanges`, wasChanges);
+        console.log(`wasChanges - end`, wasChanges);
     } while (wasChanges)
   }
   
