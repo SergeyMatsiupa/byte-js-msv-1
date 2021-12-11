@@ -54,16 +54,29 @@ const task1 = () => {
 function task2() {
 
     const renderProdsInnerH = (prodsArr, elemToRend) => {
-        // const
+        // const divObj = `
+        // <div>
+        //     ${prodsArr.map((item) => 
+        //         '<h2>'+item.name+'</h2>'
+        //         +'<h3>'+item.brand+'</h3>'
+        //         +'<ul>'+item.properties.map((p) => 
+        //                 '<li>' + p + '</li>').join('\n')+'</ul>'
+        //         ).join("\n")}
+        // </div>`;
+        
         const divObj = `
         <div>
             ${prodsArr.map((item) => 
-                '<h2>'+item.name+'</h2>'
-                +'<h3>'+item.brand+'</h3>'
-                +'<ul>'+item.properties.map((p) => 
-                        '<li>' + p + '</li>').join('\n')+'</ul>'
-                ).join("\n")}
+                `<h2>${item.name}</h2>
+                <h3>${item.brand}</h3>
+                <ul>
+                ${item.properties.map((p) => 
+                    `<li>${p}</li>
+                    `).join('\n')}
+                </ul>
+                `).join("\n")}
         </div>`;
+        
         elemToRend.innerHTML = divObj;
       }
       
