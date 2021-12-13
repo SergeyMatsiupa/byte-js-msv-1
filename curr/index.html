@@ -14,6 +14,82 @@
     }
 
 
+    body {
+      padding: 20px 0 0 20px;
+      cursor: pointer;
+    }
+
+    #field {
+      overflow: hidden;
+      width: 200px;
+      height: 150px;
+      border-top: 10px solid black;
+      border-right: 10px solid gray;
+      border-bottom: 10px solid gray;
+      border-left: 10px solid black;
+      background-color: #00FF00;
+      font: 10px/1.2 monospace;
+    }
+
+    .triangle-right {
+      position: relative;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 20px solid red;
+      text-indent: -20px;
+      font: 12px/1 monospace;
+    }
+
+
+    .note {
+      position: fixed;
+      z-index: 1000;
+      padding: 5px;
+      border: 1px solid black;
+      background: white;
+      text-align: center;
+      font: italic 14px serif;
+    }
+
+    blockquote {
+      background: #f9f9f9;
+      border-left: 10px solid #ccc;
+      margin: 0 0 0 100px;
+      padding: .5em 10px;
+      quotes: "\201C""\201D""\2018""\2019";
+      display: inline-block;
+      white-space: pre;
+    }
+
+    blockquote:before {
+      color: #ccc;
+      content: open-quote;
+      font-size: 4em;
+      line-height: .1em;
+      margin-right: .25em;
+      vertical-align: -.4em;
+    }
+
+    .for-scroll {
+      height: 200px;
+      width: 25%;
+      overflow: auto;
+    }
+
+
+
+    #field {
+      width: 200px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+    }
+
+    #ball {
+      position: absolute;
+    }
 
   </style>
 </head>
@@ -149,6 +225,56 @@
     </tbody>
   </table>
 
+  Кликните в любом месте для получения координат в контексте окна.
+  <br> Это для тестирования, чтобы проверить результат, который вы получили с помощью JavaScript.
+  <br>
+  <div id="coords">(координаты покажутся здесь)</div>
+
+
+  <div id="field">
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+  <div id="coords-my">(координаты покажутся здесь)</div>
+
+  <div class="triangle-right" style="left:-20px;top:-176px">1</div>
+  <div class="triangle-right" style="left:-10px;top:-178px">3</div>
+  <div class="triangle-right" style="left:190px;top:-40px">4</div>
+  <div class="triangle-right" style="left:200px;top:-42px">2</div>
+
+
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit sint atque dolorum fuga ad incidunt voluptatum error fugiat animi amet! Odio temporibus nulla id unde quaerat dignissimos enim nisi rem provident molestias sit tempore omnis recusandae
+    esse sequi officia sapiente.</p>
+
+  <blockquote>
+    Teacher: Why are you late?
+    Student: There was a man who lost a hundred dollar bill.
+    Teacher: That's nice. Were you helping him look for it?
+    Student: No. I was standing on it.
+  </blockquote>
+
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit sint atque dolorum fuga ad incidunt voluptatum error fugiat animi amet! Odio temporibus nulla id unde quaerat dignissimos enim nisi rem provident molestias sit tempore omnis recusandae
+    esse sequi officia sapiente.</p>
+
+
+
+  <div class="for-scroll">
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum libero aperiam iure aspernatur, necessitatibus enim ipsam dolor officia tempora veritatis iste, facilis cupiditate dignissimos quo consequuntur veniam impedit aliquam iusto accusamus voluptatibus unde neque et sint minima. Earum reprehenderit deleniti aspernatur impedit expedita iste reiciendis ea sequi labore, voluptate, eligendi magni provident nobis dolore atque nemo rerum voluptates! Laudantium perspiciatis minus est voluptatum cumque debitis libero et, culpa pariatur nemo expedita voluptates cum aliquid obcaecati at, similique modi velit, voluptate maxime? Sit aspernatur voluptates obcaecati! Blanditiis fugit ducimus, at, expedita quis amet veritatis harum iusto necessitatibus provident alias laborum repudiandae!
+    </p>
+  </div>
+  <div id="scrollBottom-id"></div>
+
+
+  
+  
+  <div id="field">
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+  
+  
   <script>
     // let table = document.body.firstElementChild;
 
@@ -362,25 +488,183 @@
   let sortTblToAsc;
   
   const doSortTbl = (event) => {
-    const rows = document.querySelectorAll('#tbl_f_sort > tbody > tr');
-      console.log(`rows`, rows);
+
     let wasChanges;
+    let j = 0;
     do {
-      console.log('do - start');
+      const rows = document.querySelectorAll('#tbl_f_sort > tbody > tr');
       wasChanges = false;
-      console.log(`wasChanges - beg`, wasChanges);
       for (let i=1; i < rows.length-1; i++) {
         if (rows.item(i).children[0].innerText[0] > rows.item(i+1).children[0].innerText[0]) {
           rows.item(i+1).after(rows.item(i));
-          // wasChanges = true;
-            console.log('dddd');
+            wasChanges = true;
         }
       } 
-        console.log(`wasChanges - end`, wasChanges);
-    } while (wasChanges)
+    } while (wasChanges )
   }
   
   document.querySelector('#capt_f_sort').addEventListener('click', doSortTbl);
+
+
+
+
+
+  // получаем координаты элемента в контексте документа
+function getCoords(elem) {
+    let box = elem.getBoundingClientRect();
+
+    return {
+      top: box.top + window.pageYOffset,
+      right: box.right + window.pageXOffset,
+      bottom: box.bottom + window.pageYOffset,
+      left: box.left + window.pageXOffset
+    };
+  }
+
+
+  function createMessageUnder(elem, html) {
+    let message = document.createElement('div');
+    message.style.cssText = "position:absolute; color: red";
+
+    let coords = getCoords(elem);
+
+    message.style.left = coords.left + "px";
+    message.style.top = coords.bottom + "px";
+
+    message.innerHTML = html;
+
+    return message;
+  }
+
+  let message = createMessageUnder(document.querySelector('#table'), 'big dick');
+  document.body.append(message);
+
+
+
+
+  document.onclick = function(e) { // показывает координаты точки клика
+      coords.innerHTML = e.clientX + ':' + e.clientY;
+    };
+
+  const c1 = document.querySelector('#field').getBoundingClientRect();
+    console.log(`c1`, c1)
+  const c2 = window.getComputedStyle(document.querySelector('#field'));
+  document.querySelector('#coords-my').innerText = `${c1.top}  ${c1.left}
+  ${c1.top + c1.height}  ${c1.left + c1.width}
+  ${c1.top + parseInt(c2["border-left-width"])}  ${c1.left + parseInt(c2["border-top-width"])}
+  ${c1.top + c1.height - parseInt(c2["border-bottom-width"])}  ${c1.left + c1.width - parseInt(c2["border-left-width"])}
+  `;
+  console.log(`c2`, c2);
+
+
+
+
+    /**
+     * Позиционирует элемент elem относительно элемента anchor в соответствии со значением position.
+     *
+     * @param {Node} anchor     элемент, около которого позиционируется другой элемент
+     * @param {string} position одно из: top/right/bottom
+     * @param {Node} elem       элемент, который позиционируется
+     *
+     * Оба элемента elem и anchor должны присутствовать в документе
+     */
+     function positionAt(anchor, position, elem) {
+      // ... ваш код ...
+      const anchCoords = anchor.getBoundingClientRect();
+      const elemCoords = elem.getBoundingClientRect();
+      elem.style.position = 'absolute';
+      switch (position) {
+        case 'bottom':
+          elem.style.left = (window.pageXOffset + anchCoords.left) + "px";
+          elem.style.top = (window.pageYOffset + anchCoords.top + anchCoords.height) + "px";
+          break;
+        case 'right':
+          elem.style.left = (anchCoords.left + anchCoords.width) + "px";
+          elem.style.top = (window.pageYOffset + anchCoords.top) + "px";
+          break;
+        case 'top':
+          elem.style.left = (window.pageXOffset + anchCoords.left) + "px";
+          elem.style.top = (window.pageYOffset + anchCoords.top - elem.getBoundingClientRect().height) + "px";
+          break;
+        case 'bottom-in':
+          elem.style.left = (window.pageXOffset + anchCoords.left) + "px";
+          elem.style.top = (window.pageYOffset + anchCoords.top + anchCoords.height - elemCoords.height) + "px";
+          break;
+        case 'right-in':
+          elem.style.left = (anchCoords.left + anchCoords.width - elemCoords.width) + "px";
+          elem.style.top = (window.pageYOffset + anchCoords.top) + "px";
+          break;
+        case 'top-in':
+          elem.style.left = (window.pageXOffset + anchCoords.left) + "px";
+          elem.style.top = (window.pageYOffset + anchCoords.top) + "px";
+          break;
+      }
+    }
+
+    /**
+     * Показывает заметку с заданным содержимым на заданной позиции
+     * относительно элемента anchor.
+     */
+    function showNote(anchor, position, html) {
+      let note = document.createElement('div');
+      note.className = "note";
+      note.innerHTML = html;
+      document.body.append(note);
+
+      positionAt(anchor, position, note);
+    }
+
+    // test it
+    let blockquote = document.querySelector('blockquote');
+
+    showNote(blockquote, "top", "note above");
+    showNote(blockquote, "right", "note at the right");
+    showNote(blockquote, "bottom", "note below");
+    showNote(blockquote, "bottom-in", "note below in");
+    showNote(blockquote, "right-in", "note at the right in");
+    showNote(blockquote, "top-in", "note at the top in");
+
+
+
+    const getScrollBottom = (elem) => {
+      return elem.scrollHeight - elem.scrollTop - elem.clientHeight;
+    }
+
+    const scrolDivObj = document.querySelector('.for-scroll');
+    scrolDivObj.addEventListener('scroll', (event) => {
+      document.querySelector('#scrollBottom-id').innerText = getScrollBottom(scrolDivObj);
+    });
+
+
+    const scrollbarWidth = scrolDivObj.offsetWidth - scrolDivObj.clientWidth - scrolDivObj.clientLeft;
+    console.log(`scrollbarWidth`, scrollbarWidth);
+    // console.log(`scrolDivObj`, window.getComputedStyle(scrolDivObj));
+
+
+    // создадим элемент с прокруткой
+    let div1 = document.createElement('div');
+
+    div1.style.overflowY = 'scroll';
+    div1.style.width = '50px';
+    div1.style.height = '50px';
+
+    // мы должны вставить элемент в документ, иначе размеры будут равны 0
+    document.body.append(div1);
+    let scrollWidth = div1.offsetWidth - div1.clientWidth;
+
+    div1.remove();
+
+    // alert(scrollWidth);
+
+
+
+    const ballObj = document.querySelector('#ball');
+    fieldObj = document.querySelector('#field');
+    // const fieldCoords = fieldObj.getBoundingClientRect();
+    ballObj.style.top = ballObj.style.top + fieldObj.clientHeight / 2  -  ballObj.offsetHeight / 2  +  'px';
+      console.log(`offsetHeight`, ballObj.offsetHeight);
+      console.log(`ballObj`, ballObj);
+
 
   </script>
 </body>
