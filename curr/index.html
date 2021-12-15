@@ -5,7 +5,7 @@
     <title>TTTTTTTT</title>
   <style>
     table {
-      border-collapse: collapse;
+      /* border-collapse: collapse; */
     }
 
     td {
@@ -89,6 +89,22 @@
 
     #ball {
       position: absolute;
+    }
+
+
+    .notification {
+      position: fixed;
+      z-index: 1000;
+      padding: 5px;
+      border: 1px solid black;
+      font-size: 20px;
+      background: white;
+      text-align: center;
+    }
+
+    .welcome {
+      background: #b80000;
+      color: yellow;
     }
 
   </style>
@@ -658,12 +674,55 @@ function getCoords(elem) {
 
 
 
-    const ballObj = document.querySelector('#ball');
-    fieldObj = document.querySelector('#field');
-    // const fieldCoords = fieldObj.getBoundingClientRect();
-    ballObj.style.top = ballObj.style.top + fieldObj.clientHeight / 2  -  ballObj.offsetHeight / 2  +  'px';
-      console.log(`offsetHeight`, ballObj.offsetHeight);
-      console.log(`ballObj`, ballObj);
+    window.addEventListener('load', (event) => {
+        const ballObj = document.querySelector('#ball');
+        const fieldObj = document.querySelector('#field');
+        // const fieldCoords = fieldObj.getBoundingClientRect();
+        ballObj.style.top = ballObj.style.top + fieldObj.clientHeight / 2  -  ballObj.offsetHeight / 2  +  'px';
+        // console.log(`offsetHeight`, ballObj.offsetHeight);
+        // console.log(`ballObj`, ballObj);
+        // console.log(`ballObj.getBoundingClientRect().height`, ballObj.getBoundingClientRect().height);
+        ballObj.style.left = ballObj.style.left + fieldObj.clientWidth / 2 - ballObj.offsetWidth / 2 + 'px';
+
+    });
+
+
+
+
+    const showNotification = (styleObj) => {
+      const objNot = document.createElement('div');
+      for (let key in styleObj) {
+        switch (key) {
+          case 'top':
+          case 'left':
+          case 'right':
+            objNot.style[key] = styleObj[key]+'px';
+            break;
+          case 'html':
+            objNot.innerHTML = styleObj[key];
+            break;
+          case 'className':
+            objNot.className = styleObj[key];
+            break;
+          default:
+            objNot.style[key] = styleObj[key];
+              // console.log(`objNot.style[key]`, objNot.style[key]);
+        }
+      }
+      objNot.classList.add('notification');
+      const objNotExs = document.body.appendChild(objNot);
+        console.log(`objNot`, objNot)
+      setTimeout(() => objNotExs.remove(), 1000 * 1.5);
+    }
+    
+    // показывает элемент с текстом "Hello" рядом с правой верхней частью окна.
+    showNotification({
+      top: 10, // 10px от верхней границы окна (по умолчанию 0px)
+      right: 10, // 10px от правого края окна (по умолчанию 0px)
+      html: "Hello!", // HTML-уведомление
+      className: "welcome" // дополнительный класс для div (необязательно)
+    });
+
 
 
   </script>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TTTTTTTT</title>
+    <title>TTTTTTTT1</title>
   <style>
 
     #field {
@@ -23,20 +23,25 @@
 
   
   <div id="field">
-    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball" alt="boll"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   </div>
   
   
   <script>
 
-    const ballObj = document.querySelector('#ball');
-    fieldObj = document.querySelector('#field');
-    // const fieldCoords = fieldObj.getBoundingClientRect();
-    ballObj.style.top = ballObj.style.top + fieldObj.clientHeight / 2  -  ballObj.offsetHeight / 2  +  'px';
-      console.log(`offsetHeight`, ballObj.offsetHeight);
-      console.log(`ballObj`, ballObj);
 
+
+
+    window.addEventListener('load', (event) => {
+        const ballObj = document.querySelector('#ball');
+        const fieldObj = document.querySelector('#field');
+        // const fieldCoords = fieldObj.getBoundingClientRect();
+        ballObj.style.top = ballObj.style.top + fieldObj.clientHeight / 2  -  ballObj.offsetHeight / 2  +  'px';
+        console.log(`offsetHeight`, ballObj.offsetHeight);
+        console.log(`ballObj`, ballObj);
+        console.log(`ballObj.getBoundingClientRect().height`, ballObj.getBoundingClientRect().height);
+    });
 
   </script>
 </body>
