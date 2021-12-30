@@ -16,7 +16,7 @@
 
     body {
       padding: 20px 0 0 20px;
-      cursor: pointer;
+      /* cursor: pointer; */
     }
 
     #field {
@@ -80,15 +80,17 @@
 
 
 
-    #field {
+    #field, #field1 {
       width: 200px;
       border: 10px groove black;
       background-color: #00FF00;
       position: relative;
+      cursor: crosshair;
     }
 
-    #ball {
+    #ball,  #ball1 {
       position: absolute;
+      transition: 1s all;
     }
 
 
@@ -105,6 +107,128 @@
     .welcome {
       background: #b80000;
       color: yellow;
+    }
+
+
+    #ul-menu-id, #close-menu-id {
+        display: none;
+    }
+    #menu-caption {
+      cursor: pointer;
+    }
+
+
+    .pane {
+      border: 1px solid;
+      position: relative;
+      width: 25%;
+    }
+    .remove-button {
+      position: absolute;
+      color: red;
+      cursor: pointer;
+    }
+
+
+    
+    #carou {
+      display: flex;
+      align-items: center;
+    }
+
+    #ul-carou-id {
+      /* width: 50%; */
+    }
+    
+    #ul-carou-id > li {
+      display: inline-block;
+      transition: 1s all;
+    }
+
+    .arrow {
+    }
+
+    .disp-non {
+      display: none !important;
+    }
+
+
+
+    .tooltip {
+      position: absolute;
+      z-index: 100;
+
+      padding: 10px 20px;
+
+      border: 1px solid #b3c9ce;
+      border-radius: 4px;
+      text-align: center;
+      font: italic 14px/1.3 sans-serif;
+      color: #333;
+      background: #fff;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+    }
+
+    #house {
+      margin-top: 50px;
+      width: 400px;
+      border: 1px solid brown;
+      position: relative;
+    }
+
+    #roof {
+      width: 0;
+      height: 0;
+      border-left: 200px solid transparent;
+      border-right: 200px solid transparent;
+      border-bottom: 20px solid brown;
+      margin-top: -20px;
+    }
+
+    p {
+      text-align: justify;
+      margin: 10px 3px;
+    }
+
+
+
+    .hours {
+      color: red;
+    }
+
+    .minutes {
+      color: green;
+    }
+
+    .seconds {
+      color: blue;
+    }
+
+    .clock {
+      border: 1px dashed black;
+      padding: 5px;
+      display: inline-block;
+      background: yellow;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: #eee;
+      border: 1px brown solid;
+      padding: 3px;
+    }
+
+
+
+    #ul-mltsel-id > .selected {
+      background: #0f0;
+    }
+
+    #ul-mltsel-id > li {
+      cursor: pointer;
     }
 
   </style>
@@ -291,6 +415,109 @@
   </div>
   
   
+  
+  <input type="button" id="hider" value="Нажмите, чтобы спрятать текст" />
+  <div id="text">Текст</div>
+  
+  <input type="button" id="hider_himself" value="Нажмите, чтобы спрятать" />
+
+  <button id="tttttt">tttttt</button>
+
+
+
+  <div id="field1">
+    <img src="https://ru.js.cx/clipart/ball.svg" id="ball1"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+
+
+  <span id='menu-caption'>
+    <span id="open-menu-id">▶</span><span id="close-menu-id">▼</span>Сладости (нажми меня)!
+  </span>
+  <ul id="ul-menu-id">
+    <li>Пирожное</li>
+    <li>Пончик</li>
+    <li>Мёд</li>
+  </ul>
+
+
+
+  <div>
+    <div class="pane">
+      <h3>Лошадь</h3>
+      <p>Домашняя лошадь — животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
+    </div>
+    <div class="pane">
+      <h3>Осёл</h3>
+      <p>Домашний осёл (лат. Equus asinus asinus), или ишак, — одомашненный подвид дикого осла (Equus asinus), сыгравший важную историческую роль в развитии хозяйства и культуры человека и по-прежнему широко в хозяйстве многих развивающихся стран.</p>
+    </div>
+    <div class="pane">
+      <h3>Кошка</h3>
+      <p>Кошка, или домашняя кошка (лат. Felis silvestris catus), — домашнее животное, одно из наиболее популярных(наряду с собакой) «животных-компаньонов». Являясь одиночным охотником на грызунов и других мелких животных, кошка — социальное животное, использующее для общения широкий диапазон звуковых сигналов.</p>
+    </div>
+  </div>
+
+
+
+
+
+  <div id='carou'>
+    <button class="arrow">⇦</button>
+    <ul id="ul-carou-id">
+      <li><img src="https://ru.js.cx/carousel/1.png"></li>
+      <li><img src="https://ru.js.cx/carousel/2.png"></li>
+      <li><img src="https://ru.js.cx/carousel/3.png"></li>
+      <li class="disp-non"><img src="https://ru.js.cx/carousel/4.png"></li>
+      <li class="disp-non"><img src="https://ru.js.cx/carousel/5.png"></li>
+      <li class="disp-non"><img src="https://ru.js.cx/carousel/6.png"></li>
+      <li class="disp-non"><img src="https://ru.js.cx/carousel/7.png"></li>
+      <li class="disp-non"><img src="https://ru.js.cx/carousel/8.png"></li>
+      <li class="disp-non"><img src="https://ru.js.cx/carousel/9.png"></li>
+      <li class="disp-non"><img src="https://ru.js.cx/carousel/10.png"></li>
+    </ul>
+    <button class="arrow">⇨</button>
+  </div>
+
+
+
+  <div data-tooltip="Здесь домашний интерьер" id="house">
+    <div data-tooltip="Здесь крыша" id="roof"></div>
+
+    <p>Жили-были на свете три поросенка. Три брата. Все одинакового роста, кругленькие, розовые, с одинаковыми веселыми хвостиками.</p>
+
+    <p>Даже имена у них были похожи. Звали поросят: Ниф-Ниф, Нуф-Нуф и Наф-Наф. Все лето они кувыркались в зеленой траве, грелись на солнышке, нежились в лужах.</p>
+
+    <p>Но вот наступила осень. Солнце уже не так сильно припекало, серые облака тянулись над пожелтевшим лесом.</p>
+
+    <p>- Пора нам подумать о зиме, - сказал как-то Наф-Наф. <a href="https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B8_%D0%BF%D0%BE%D1%80%D0%BE%D1%81%D1%91%D0%BD%D0%BA%D0%B0" data-tooltip="Читать далее…">Наведи курсор на меня</a></p>
+
+  </div>
+
+
+
+  <div id="elem" class="clock">
+    <span class="hours">12</span> :
+    <span class="minutes">30</span> :
+    <span class="seconds">00</span>
+  </div>
+
+  <div id="tooltip" hidden>Подсказка</div>
+
+
+
+  Кликни на элемент списка, чтобы выделить его.
+  <br>
+  <ul id="ul-mltsel-id">
+    <li>Кристофер Робин</li>
+    <li>Винни Пух</li>
+    <li>Тигра</li>
+    <li>Кенга</li>
+    <li>Кролик. Просто Кролик.</li>
+  </ul>
+
+
+
   <script>
     // let table = document.body.firstElementChild;
 
@@ -722,8 +949,294 @@ function getCoords(elem) {
       html: "Hello!", // HTML-уведомление
       className: "welcome" // дополнительный класс для div (необязательно)
     });
+  
 
 
+
+  document.getElementById('hider').addEventListener('click', hndl1 = (event) => {
+    // document.getElementById('text').style.display = 'none';
+    document.getElementById('text').hidden = true;
+  });
+
+
+  document.getElementById('hider_himself').onclick = function hideHimself (event) {
+    this.hidden = true;
+  };
+
+  const button = document.getElementById('tttttt');
+  button.addEventListener("click", () => alert("1"));
+  button.removeEventListener("click", () => alert("1"));
+  button.onclick = () => alert(2);
+
+
+
+  document.getElementById('field1').addEventListener('click', (event) => {
+    const ballObj = document.getElementById ('ball1');
+      console.log(`event.currentTarget`, event.currentTarget);
+    const fildCoords = event.currentTarget.getBoundingClientRect();
+    const ballCoords = ballObj.getBoundingClientRect();
+      console.log(`event.currentTarget`, event.currentTarget);
+
+    const borderTop = (event.currentTarget.offsetHeight - event.currentTarget.clientHeight)/2; 
+    let propTop = (event.clientY - fildCoords.top - borderTop) - ballCoords.height/2;
+    propTop = Math.max(propTop, 0);
+    propTop = Math.min(propTop, (fildCoords.height - ballCoords.height - borderTop*2));
+    ballObj.style.top = propTop + 'px';
+
+    const borderLeft = (event.currentTarget.offsetWidth - event.currentTarget.clientWidth)/2; 
+    let propLeft = (event.clientX - fildCoords.left - borderLeft) - ballCoords.width/2;
+    propLeft = Math.max(propLeft, 0);
+    propLeft = Math.min(propLeft, (fildCoords.width - ballCoords.width - borderLeft*2));
+    ballObj.style.left = propLeft + 'px';
+  });
+
+
+  let menuOpened = false;
+
+  document.getElementById('menu-caption').addEventListener('click', (event) => {
+    if(!menuOpened) {
+      document.getElementById('ul-menu-id').style.display = 'block';
+      document.getElementById('close-menu-id').style.display = 'inline';
+      document.getElementById('open-menu-id').style.display = 'none';
+      menuOpened = true;
+    } else {
+      document.getElementById('ul-menu-id').style.display = 'none';
+      document.getElementById('open-menu-id').style.display = 'inline';
+      document.getElementById('close-menu-id').style.display = 'none';
+      menuOpened = false;
+    };
+  });
+
+
+
+  const divsCanRemove = document.querySelectorAll('.pane');
+  for (let divCanRemove of divsCanRemove) {
+    closeButt = divCanRemove.appendChild(document.createElement('span'));
+    closeButt.className = 'remove-button';
+      console.log(`closeButt`, closeButt);
+    closeButt.innerText = '[X]';
+    closeButt.style.top = '0px';
+    closeButt.style.left = divCanRemove.offsetWidth - closeButt.offsetWidth  + 'px';
+    console.log(`divCanRemove.offsetWidth`, divCanRemove.offsetWidth);
+    closeButt.addEventListener('click',(event) => {
+      event.currentTarget.parentNode.remove();
+    });
+  }
+
+
+
+      // отметить картинки для удобства разработки
+    // этот код может быть удалён по вашему усмотрению
+    let i = 1;
+    for(let li of document.querySelectorAll('#ul-carou-id > li')) {
+      li.style.position = 'relative';
+      li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
+      i++;
+    }
+
+    // ...ваш код, который сделает карусель рабочей
+    document.querySelectorAll('button.arrow')[1].addEventListener('click', (elem) => {
+      const imgsNodes = document.querySelectorAll('#ul-carou-id > li');
+      for ( i = 0; i < imgsNodes.length; i++) {
+        if (!imgsNodes[i].classList.contains("disp-non") && i < imgsNodes.length - 3) {
+          imgsNodes[i].classList.add("disp-non");
+          imgsNodes[i+3].classList.remove("disp-non");
+          break;
+        }
+      }
+    });
+
+    document.querySelectorAll('button.arrow')[0].addEventListener('click', (elem) => {
+      const imgsNodes = document.querySelectorAll('#ul-carou-id > li');
+      for (i = imgsNodes.length-1; i >= 0; i--) {
+        if (!imgsNodes[i].classList.contains("disp-non") && i > 2) {
+          imgsNodes[i].classList.add("disp-non");
+          imgsNodes[i-3].classList.remove("disp-non");
+          break;
+        }
+      }
+    });
+
+
+    let lastTarget = null;
+    
+    const showTooltip = (event) => {
+      const mainDiv = document.getElementById('house');
+      
+      if ((lastTarget === event.target) && mainDiv.contains(event.relatedTarget)) {
+        console.log('showing cancelled');
+        return;
+      }
+      
+      let tooltipTxt = event.target.getAttribute('data-tooltip');
+      if (!tooltipTxt) {
+        // mainDiv.dispatchEvent(event);
+        tooltipTxt = mainDiv.getAttribute('data-tooltip');
+      }
+      event.preventDefault();
+        
+      const tooltipObj = document.createElement('div');
+      tooltipObj.className = 'tooltip';
+      tooltipObj.innerText = tooltipTxt;
+      mainDiv.append(tooltipObj);
+      tooltipObj.style.top = event.clientY - mainDiv.getBoundingClientRect().y - tooltipObj.getBoundingClientRect().height - 10 + 'px';
+      tooltipObj.style.left = event.clientX - mainDiv.getBoundingClientRect().x + 'px';
+
+      lastTarget = event.target;
+    };
+
+
+    const hideTooltip = (event) => {
+      event.preventDefault();
+        console.log(`event - hide`, event);
+      const curTooltip = document.querySelector('.tooltip');
+      if (curTooltip) {
+        curTooltip.remove();
+      }
+      lastTarget = event.target;
+    };
+
+    const houseNode = document.getElementById('house');
+        console.log(`houseNode`, houseNode);
+
+    const setTooltip = (nodeObj) => {
+      if (nodeObj.getAttribute('data-tooltip')) {
+          console.log(`nodeObj`, nodeObj)
+        nodeObj.addEventListener('mouseover', showTooltip);
+        nodeObj.addEventListener('mouseout', hideTooltip);
+      };
+      if (nodeObj.hasChildNodes()) {
+        // console.log(`nodeObj`, nodeObj)
+        for (childNode of nodeObj.children) {
+          setTooltip(childNode);
+        }
+      }
+    }
+
+    setTooltip(houseNode);
+
+
+
+'use strict';
+
+// Здесь показан набросок класса
+// с возможностями, которые нам понадобятся
+class HoverIntent {
+
+  constructor({
+    sensitivity = 0.1, // скорость ниже 0.1px/ms значит "курсор на элементе"
+    interval = 100, // измеряем скорость каждые 100ms: определяем дистанцию между предыдущей и новой позицией.
+    elem,
+    over,
+    out
+  }) {
+    this.sensitivity = sensitivity;
+    this.interval = interval;
+    this.elem = elem;
+    this.over = over;
+    this.out = out;
+
+    // убедитесь, что "this" сохраняет своё значение для обработчиков.
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+
+    // назначаем обработчики
+    elem.addEventListener("mouseover", this.onMouseOver);
+    elem.addEventListener("mouseout", this.onMouseOut);
+
+    // продолжите с этого места
+
+  }
+
+  onMouseOver(event) {
+    /* ... */
+  }
+
+  onMouseOut(event) {
+    /* ... */
+  }
+
+  onMouseMove(event) {
+    /* ... */
+  }
+
+
+  destroy() {
+    /* ваш код для отключения функциональности и снятия всех обработчиков */
+  }
+
+}
+  
+  
+  
+  // для демо
+  setTimeout(function() {
+    new HoverIntent({
+      elem,
+      over() {
+        tooltip.hidden = false;
+      },
+      out() {
+        tooltip.hidden = true;
+      }
+    });
+  }, 2000);
+
+
+
+
+  const liNodesM = document.querySelectorAll('#ul-mltsel-id > li');
+  for (let liNodeM of liNodesM) {
+    liNodeM.addEventListener('click', (event) => {
+      // cancel previous selection
+      if (!(event.metaKey || event.ctrlKey)) {
+        const sibElems = event.target.parentElement.children
+        for (let sibElem of sibElems) {
+          // console.log(`sibElem`, sibElem);
+          sibElem.classList.remove('selected');
+        }
+      }
+      event.target.classList.toggle('selected');
+    });
+  }
+
+
+
+  
+  const keySeqPass = [];
+  
+  function runOnKeys(func /*, code1, code2, ... code_n*/) {
+    const argumentsI = arguments;
+    document.addEventListener('keydown', function(event) {
+      keySeqPass.push(event.code);
+      let isKeySeqPass = false;
+      // take key-codes one by one
+      for (let i = 1; i < Math.min(argumentsI.length,keySeqPass.length+1); i++) {
+        if (argumentsI[i] !== keySeqPass[i-1]) {
+          keySeqPass.length = 0;
+        }
+          // console.log(`argumentsI[i]`, argumentsI[i]);
+      }
+      if (argumentsI.length-1 === keySeqPass.length) {
+          console.log(`argumentsI`, argumentsI);
+          console.log(`keySeqPass`, keySeqPass);
+        func();
+        keySeqPass.length = 0;
+      }
+    });
+    document.addEventListener('keyup', function(event) {
+      keySeqPass.length = 0;
+    });
+  }; 
+  
+  runOnKeys(
+    () => alert("Привет!"),
+    "KeyQ",
+    "KeyW"
+  );
+
+  
 
   </script>
 </body>

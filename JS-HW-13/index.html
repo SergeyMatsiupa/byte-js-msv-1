@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-HW-13</title>
+    <style>
+        .img-wrapp {
+            display: inline-block;
+        }
+        .img-wrapp > img {
+            height: 60vh;
+        }
+        .hide-elem {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        JS-HW-13
+    </p>
+    <!-- <button onclick="task1()">render - append</button>
+    <button onclick="task2()">render - inner</button> -->
+    <div>
+        <ul>
+            <li class="img-wrapp">
+                <img src="images/1.jpg" alt="1 img">
+            </li>
+            <li  class="img-wrapp hide-elem">
+                <img src="images/2.jpg" alt="2 img">
+            </li>
+            <li  class="img-wrapp hide-elem">
+                <img src="images/3.jpg" alt="3 img">
+            </li>
+            <li  class="img-wrapp hide-elem">
+                <img src="images/4.jpg" alt="4 img">
+            </li>
+        </ul>
+        <button id="prev-butt-id">
+            Prev
+        </button>
+        <button id="next-butt-id">
+            Next
+        </button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
