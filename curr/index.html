@@ -231,6 +231,76 @@
       cursor: pointer;
     }
 
+
+
+    td select,
+    td input {
+      width: 150px;
+    }
+
+    #diagram td {
+      vertical-align: bottom;
+      text-align: center;
+      padding: 10px;
+    }
+
+    #diagram div {
+      margin: auto;
+    }
+
+
+
+  #prompt-form {
+    display: inline-block;
+    padding: 5px 5px 5px 70px;
+    width: 200px;
+    border: 1px solid black;
+    background: white url(https://en.js.cx/clipart/prompt.png) no-repeat left 5px;
+    vertical-align: middle;
+    }
+
+  #prompt-form-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    }
+  
+  #prompt-form-container:before {
+    display: inline-block;
+    height: 100%;
+    content: '';
+    vertical-align: middle;
+  }
+
+  #prompt-form input[name="text"] {
+    display: block;
+    margin: 5px;
+    width: 180px;
+  }
+
+  #cover-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    opacity: 0.3;
+  }
+
+
+
+  
+
+
+
+
   </style>
 </head>
 
@@ -410,7 +480,7 @@
   
   
   <div id="field">
-    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball" alt='ball'> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
   </div>
   
@@ -515,6 +585,97 @@
     <li>Кенга</li>
     <li>Кролик. Просто Кролик.</li>
   </ul>
+
+
+
+  <div data-widget-name="menu">Choose the genre</div>
+
+
+
+  <a name="list">the list</a>
+  <ul>
+    <li><a href="http://google.com">http://google.com</a></li>
+    <li><a href="/tutorial">/tutorial.html</a></li>
+    <li><a href="local/path">local/path</a></li>
+    <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+    <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+    <li><a href="http://internal.com/test">http://internal.com/test</a></li>
+  </ul>
+
+
+
+
+  <select id="genres">
+    <option value="rock">Рок</option>
+    <option value="blues" selected>Блюз</option>
+  </select>
+
+
+
+
+  <p>Депозитный калькулятор.</p>
+  <form name="calculator">
+    <table>
+      <tr>
+        <td>Первоначальный депозит</td>
+        <td>
+          <input name="money" type="number" value="100" required>
+        </td>
+      </tr>
+      <tr>
+        <td>Срок вклада?</td>
+        <td>
+          <select name="months">
+            <option value="3">3 (минимум)</option>
+            <option value="6">6 (полгода)</option>
+            <option value="12" selected>12 (год)</option>
+            <option value="18">18 (1.5 года)</option>
+            <option value="24">24 (2 года)</option>
+            <option value="30">30 (2.5 года)</option>
+            <option value="36">36 (3 года)</option>
+            <option value="60">60 (5 лет)</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Годовая процентная ставка?</td>
+        <td>
+          <input name="interest" type="number" value="5" required>
+        </td>
+      </tr>
+    </table>
+  </form>
+</form>
+
+
+<table id="diagram">
+  <tr>
+    <th>Было:</th>
+    <th>Станет:</th>
+  </tr>
+  <tr>
+    <th id="money-before"></th>
+    <th id="money-after"></th>
+  </tr>
+  <td>
+    <div style="background: red;width:40px;height:100px"></div>
+  </td>
+  <td>
+    <div style="background: green;width:40px;height:0" id="height-after"></div>
+  </td>
+</table>
+
+
+
+<div id="prompt-form-container">
+  <form id="prompt-form">
+    <div id="prompt-message">Введите что-нибудь...
+      <br>Пожалуйста..</div>
+    <input name="text" type="text">
+    <input type="submit" value="Ok">
+    <input type="button" name="cancel" value="Отмена">
+  </form>
+</div>
 
 
 
@@ -1236,7 +1397,145 @@ class HoverIntent {
     "KeyW"
   );
 
+
+
+
+  const targetElem = document.querySelector('[data-widget-name]');
+  console.log(`targetElem.getAttribute('data-widget-name')`, targetElem.getAttribute('data-widget-name'));
+
+
+
+  const targetHrefs = document.querySelectorAll('[name="list"] ~ ul > li > a[href*="://"]:not([href^="http://internal.com"])');
+  for (let targetHref of targetHrefs) {
+    targetHref.style.color = 'orange';
+  }
+
   
+
+  const idElems = document.querySelectorAll('[id]');
+  idElems.forEach(idElem => {
+    console.log(`idElem`, idElem);
+  });
+
+
+  const imgElems = document.querySelectorAll('img');
+  imgElems.forEach(imgElem => {
+    if (!imgElem.hasAttribute('title') 
+      && imgElem.hasAttribute('alt')) {
+        const attrTitle = document.createAttribute('title');
+        attrTitle.value = imgElem.getAttribute('alt');
+        imgElem.attributes.setNamedItem(attrTitle);
+          console.log(`imgElem`, imgElem);
+    };
+  });
+
+
+
+  const selElem = document.querySelector('select[id="genres"]');
+    console.log(`selElem`, selElem);
+  for (let option of selElem.options) {
+    if (option.selected) {
+      console.log(`option.value`, option.value);
+      console.log(`option.text`, option.text);
+    }
+  }
+
+  const option = new Option("Классика", "classic");
+  selElem.append(option);
+  option.selected = true;
+
+
+
+  const calculate = (event) => {
+      // console.log(`event`, event);
+    const initial = form.money.value;
+    const interest = form.interest.value / 100;
+    const years = form.months.value / 12;
+    const result = Math.round(initial * (1 + interest) ** years);
+      // console.log(`result`, result);
+    const trRes = document.querySelector('table[id="diagram"] > tbody > tr');
+      // console.log(`trRes`, trRes);
+    trRes.children[0].innerText = `Was:\n${initial}`;
+    trRes.children[1].innerText = `Will:\n${result}`;
+    const trResGr = document.querySelector('table[id="diagram"] > tbody > tr:nth-child(3)');
+      // console.log(`trResGr`, trResGr);
+    trResGr.children[0].querySelector('div').style.height = initial + 'px';
+    trResGr.children[1].querySelector('div').style.height = result + 'px';
+  }
+
+  let form = document.forms.calculator;
+  window.addEventListener('load',calculate);
+  form.money.addEventListener('input', calculate);
+  form.months.addEventListener('change', calculate);
+  form.interest.addEventListener('input', calculate);
+
+
+
+
+  const showPrompt = (html, callback) => {
+    const closeFrm = () => {
+      document.getElementById('cover-div').remove();
+      document.body.style.overflowY = '';
+      constFrmCont.style.display = 'none';
+    }
+    
+    
+    let coverDiv = document.createElement('div');
+    coverDiv.id = 'cover-div';
+    // убираем возможность прокрутки страницы во время показа модального окна с формой
+    document.body.style.overflowY = 'hidden';
+    document.body.append(coverDiv);
+    
+    constFrmCont = document.getElementById('prompt-form-container');
+    constFrmCont.querySelector('input[name="cancel"]').addEventListener('click', (event) => {
+      closeFrm();
+    });
+    
+    let lastElem = constFrmCont.querySelector('#prompt-form').elements[form.elements.length - 1];
+    let firstElem = constFrmCont.querySelector('#prompt-form').elements[0];
+
+    lastElem.onkeydown = function(e) {
+      if (e.key == 'Tab' && !e.shiftKey) {
+        firstElem.focus();
+        return false;
+      }
+    };
+
+    firstElem.onkeydown = function(e) {
+      if (e.key == 'Tab' && e.shiftKey) {
+        lastElem.focus();
+        return false;
+      }
+    };
+    
+    constFrmCont.style.display = 'block';
+    constFrmCont.querySelector('input[name="text"]').focus();
+    
+    document.getElementById('prompt-form').addEventListener('submit', (event) => {
+      const txtVal = constFrmCont.querySelector('input[name="text"]').value;
+      if (!txtVal) return false; // игнорируем отправку пустой формы
+      closeFrm();
+      callback(txtVal);
+      return false;
+    });
+
+    constFrmCont.addEventListener('keyup', (event) => {
+      if (event.code === 'Escape') {
+        closeFrm();
+      }
+    });
+  }
+  
+  myButt = document.createElement('button');
+  myButt.innerText = "Show modal";
+  myButt.addEventListener('click', (event) => {
+    showPrompt("Введите что-нибудь<br>...умное :)", function(value) {
+    alert(value);
+    });
+  });
+  document.body.append(myButt);
+  
+ 
 
   </script>
 </body>
