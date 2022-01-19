@@ -1534,8 +1534,154 @@ class HoverIntent {
     });
   });
   document.body.append(myButt);
+
+
+
+
+
+  let user = {
+    name: "John",
+    years: 30
+  };
+  let {name, years: age, isAdmin = false} = user;
+  console.log(`name`, name);
+  console.log(`age`, age);
+  console.log(`isAdmin`, isAdmin);
+
+
+  let salaries = {
+    "John": 100,
+    "Pete": 300,
+    "Mary": 250
+  };
+
+  const topSalary = (salaries) => {
+    let rez = null;
+    let maxSal = 0;
+    // let {"John":maxSal} = salaries;
+    
+    for (const [key, value] of Object.entries(salaries)) {
+      if (value > maxSal) {
+        maxSal = value;
+        rez = key;
+      }
+    }
+    return rez;
+  };
+
+  console.log(`topSalary(salaries)`, topSalary(salaries));
+
+
+
+
+  const tstStr1 = 'Завтрак в 09:00 в комнате 123:456';
+  console.log(`tstStr1.match()`, tstStr1.match(/\b\d\d:\d\d\b/g));
+
+
+
+  let regexp = /\d\d[:-]\d\d/g;
+  // alert( "Завтрак в 09:00. Ужин в 21-30".match(regexp) );
+
+
+
+  regexp = /\.{3,}/g;
+  // alert( "Привет!... Как дела?.....".match(regexp) );
+
+
+  regexp = /#[0-9ABCDEF]{6}\b/gi;
+  let str = "color:#121212; background-color:#AA00ef bad-colors:f#fddee #fd2 #12345678";
+  // alert( str.match(regexp) );
+
+
+
+  regexp = /<!--.*?-->/gs;
+  str = `... <!-- My -- comment
+  test --> ..  <!----> ..
+  `;
+  // alert( str.match(regexp) ); // '<!-- My -- comment \n test -->', '<!---->'
+
+
+
+  regexp = /<[^<>]+>?/g;
+  str = '<> <a href="/"> <input type="radio" checked> <b>';
+  // alert( str.match(regexp) ); // '<a href="/">', '<input type="radio" checked>', '<b>'
+
+
+  regexp = /#([0-9a-f]{3}){1,2}\b/gi;
+  str = "color: #3f3; background-color: #AA00ef; and: #abcd";
+  // alert( str.match(regexp) ); // #3f3 #AA00ef
+
+  regexp = /-?[0-9]+(\.[0-9]+)?/g;
+  str = "-1.5 0 2 -123.4.";
+  // alert( str.match(regexp) ); // -1.5, 0, 2, -123.4
+
+
+
+  const parse = (str) => {
+    const regexp = /(?<a>-?\d+(\.\d+)?)\W*(?<op>[\+\\\-\*])\W*(?<b>-?\d+(\.\d+)?)/;
+    const res = str.match(regexp).groups;
+    return [res.a, res.op, res.b];
+  }
   
- 
+  // let [a, op, b] = parse("1.2 * 3.4");
+  // alert(a); // 1.2
+  // alert(op); // *
+  // alert(b); // 3.4
+
+
+  
+  // regexp = /^(([\da-f]{2}):){5}[\da-f]{2}$/i;
+
+  // alert( regexp.test('01:32:54:67:89:AB') ); // true
+
+  // alert( regexp.test('0132546789AB') ); // false (нет двоеточий)
+
+  // alert( regexp.test('01:32:54:67:89') ); // false (5 чисел, должно быть 6)
+
+  // alert( regexp.test('01:32:54:67:89:ZZ') ) // false (ZZ в конце строки)
+
+
+
+  regexp = /Java(Script)?|PHP|C(\+\+)?/g;
+  // alert("Java JavaScript PHP C++ C".match(regexp)); // Java JavaScript PHP C++ C
+
+
+
+  regexp = /\[(b|url|quote)\].*?\[\/\1\]/ig;
+  str = "..[url][b]http://ya.ru[/b][/url]..";
+  // alert( str.match(regexp) ); // [url][b]http://ya.ru[/b][/url]
+
+
+  //+ regexp = /".*?(\\+")?[^\\]+?"/g;
+  regexp = /"(\\.|[^"\\])*"/g;
+  str = ' .. "test me" .. "Скажи \\"Привет\\"!" .. "\\\\ \\"" .. ';
+  // alert( str.match(regexp) );
+
+
+  //+ regexp = /<style(\s.+)*?>/g;
+  regexp = /<style(>|\s.*?>)/g;
+  // alert( '<style> <styler> <style test="...">'.match(regexp) ); // <style>, <style test="...">
+
+
+
+  regexp = /(?<!-)\d+/g;
+  str = "0 12 -5 123 -18";
+  // alert( str.match(regexp) ); // 0, 12, 123
+
+
+
+   regexp = /(?<=<body style="height: 200px">)/ig;
+   str = `
+  <html>
+    <body style="height: 200px">
+    ...
+    </body>
+  </html>
+  `;
+  str = str.replace(regexp, `<h1>Hello</h1>`);
+  alert(str);
+
+
 
   </script>
 </body>
