@@ -679,6 +679,10 @@
 
 
 
+<textarea style="width:200px; height: 60px;" id="area"></textarea>
+
+
+
   <script>
     // let table = document.body.firstElementChild;
 
@@ -1679,9 +1683,23 @@ class HoverIntent {
   </html>
   `;
   str = str.replace(regexp, `<h1>Hello</h1>`);
-  alert(str);
+  // alert(str);
 
 
+
+
+  document.getElementById('area').addEventListener('input', (event) => {
+    if (event.target.value) {
+        // console.log(`event.targetElem.value`, event.target.value);
+      sessionStorage.setItem('area1', event.target.value);
+    }
+  });
+
+  const recallArea = () => {
+    document.getElementById('area').value = sessionStorage.getItem('area1');
+  }
+
+  window.addEventListener('load',recallArea);
 
   </script>
 </body>
