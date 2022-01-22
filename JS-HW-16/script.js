@@ -5,9 +5,9 @@ const renderWelcome = () => {
 }
 
 const incVisits = () => {
-    let visitsCount = sessionStorage.getItem('visitsCount');
+    let visitsCount = localStorage.getItem('visitsCount');
     visitsCount = visitsCount || 0;
-    sessionStorage.setItem('visitsCount', +visitsCount + 1);
+    localStorage.setItem('visitsCount', +visitsCount + 1);
     return visitsCount; 
 }
 

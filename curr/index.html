@@ -296,10 +296,19 @@
 
 
 
-  
-
-
-
+  .message-ball {
+      font-size: 20px;
+      line-height: 200px;
+      text-align: center;
+    }
+  .circle {
+    transition-property: width, height, margin-left, margin-top;
+    transition-duration: 2s;
+    position: fixed;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: red;
+    border-radius: 50%;
+  }
 
   </style>
 </head>
@@ -680,6 +689,9 @@
 
 
 <textarea style="width:200px; height: 60px;" id="area"></textarea>
+
+
+  <button onclick="go()">Click me</button>
 
 
 
@@ -1701,6 +1713,92 @@ class HoverIntent {
 
   window.addEventListener('load',recallArea);
 
+
+  
+  
+  const printNumbers = (from, to) => {
+    let count = from;
+    const tmrId = setInterval(() => {
+      alert(count);
+      count++;
+      if (count > to) {
+        clearInterval(tmrId);
+      }
+    }, 1000);
+  }
+
+  // printNumbers(10,15);
+
+
+  const printNumbers1 = (from, to) => {
+    let count = from;
+    setTimeout(show = () => {
+      alert(count);
+      count++;
+      if (count <= to) {
+        setTimeout(show, 1000);
+      }
+    }, 1000);
+  }
+
+  // printNumbers1(10, 15);
+
+
+
+  function delay(ms) {
+  // ваш код
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // delay(3000).then(() => alert('выполнилось через 3 секунды'));
+
+
+
+  function go() {
+    showCircle(150, 150, 100).then(div => {
+      div.classList.add('message-ball');
+      div.append("Hello, world!");
+    });
+  }
+
+  function showCircle(cx, cy, radius) {
+    let div = document.createElement('div');
+    div.style.width = 0;
+    div.style.height = 0;
+    div.style.left = cx + 'px';
+    div.style.top = cy + 'px';
+    div.className = 'circle';
+    document.body.append(div);
+
+    return new Promise( resolve => { 
+      setTimeout(() => {
+        div.style.width = radius * 2 + 'px';
+        div.style.height = radius * 2 + 'px';
+        div.addEventListener('transitionend', function handler() {
+          div.removeEventListener('transitionend', handler);
+          // callback(div);
+          resolve(div);
+        });
+      }, 0);
+    });
+  }
+
+
+
+  setTimeout(function timeout() {
+    console.log('Таймаут');
+  }, 0);
+
+  let p = new Promise(function(resolve, reject) {
+      console.log('Создание промиса');
+      resolve();
+  });
+
+  p.then(function(){
+      console.log('Обработка промиса');
+  });
+
+  console.log('Конец скрипта');
   </script>
 </body>
 </html>
