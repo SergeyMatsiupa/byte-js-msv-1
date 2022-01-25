@@ -6,6 +6,7 @@ const startButElem = document.getElementById('btn-start-id');
 const stopButElem = document.getElementById('btn-stop-id');
 const timeCaptElem = document.getElementById('timer-value-id');
 
+// MSV!!!
 stopButElem.disabled = true;
 
 
