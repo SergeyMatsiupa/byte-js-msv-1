@@ -1799,6 +1799,145 @@ class HoverIntent {
   });
 
   console.log('Конец скрипта');
+
+
+  async function deal1() { 
+    async function getUsers(loginsArr) {
+      BASE_URI = 'https://api.github.com/users/';
+      arrUsersInf = [];
+      for(login of loginsArr) {
+        const response = await fetch(BASE_URI+login, {method: 'GET'});
+        const result = response.ok ? await response.json() : null;
+        arrUsersInf.push(result);
+      }
+      return arrUsersInf;
+    }  
+    
+    let users = await getUsers(['iliakan', 'remy', 'no.such.users']);
+    console.log('users', users);
+  }
+
+  deal1();
+
+
+  (async () => {
+    async function loadJson(url) {
+      const response = await fetch(url);
+        if (response.status == 200) {
+            return await response.json();
+          } else {
+            await Promise.reject(Error(response.status));
+          }
+        }
+
+    try {
+      const resss = await loadJson('https://jsonplaceholder.typicode.com/posts') // (3)
+      console.log('resss', resss);
+    } catch(err) {
+        alert(err); // Error: 404  
+    }
+  })();
+
+
+
+  (async () => {
+    class HttpError extends Error {
+      constructor(response) {
+        super(`${response.status} for ${response.url}`);
+        this.name = 'HttpError';
+        this.response = response;
+      }
+    }
+
+    async function loadJson(url) {
+      const response = await fetch(url);
+          if (response.status == 200) {
+            return response.json();
+          } else {
+            throw new HttpError(response);
+          }
+    }
+
+    // Запрашивать логин, пока github не вернёт существующего пользователя.
+    async function demoGithubUser() {
+      let isSuccess = false;
+      do {
+        let name = prompt("Введите логин?", "iliakan");
+        try {
+          const user = await loadJson(`https://api.github.com/users/${name}`);
+          isSuccess = true;
+        } catch (err) {
+          if (err instanceof HttpError && err.response.status == 404) {
+            alert("Такого пользователя не существует, пожалуйста, повторите ввод.");
+            return demoGithubUser();
+          } else {
+            throw err;
+          }
+        }
+      } while (!isSuccess)
+
+      alert(`Полное имя: ${user.name}.`);
+    }
+
+    // demoGithubUser();
+  })();
+
+
+
+
+  async function wait() {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    return 10;
+  }
+
+  function f() {
+    // ...что здесь написать?
+    // чтобы вызвать wait() и дождаться результата "10" от async–функции
+    // не забывайте, здесь нельзя использовать "await"
+    
+    // const prrr = new Promise((resolve) => {
+    //   resolve(wait());
+    // }).then(alert(result));
+
+    // wait().then(result => alert(result));
+  }
+
+  f();
+
+
+
+  var p1 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 1000, "one");
+    console.log('first');
+  });
+  var p2 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 2000, "two");
+    console.log('second');
+  });
+  var p3 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 3000, "three");
+    console.log('third');
+  });
+  var p5 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 4000, "four");
+    console.log('p5');
+  });
+  var p4 = new Promise((resolve, reject) => {
+  // Этот промис прервёт Promise.all
+    reject("reject");
+    console.log('p4');
+  });
+
+  Promise.all([p1, p2, p3, p4, p5]).then(value => {
+    console.log(value);
+  }, reason => {
+    console.log(reason)
+  });
+
+  //Выведет:
+  //"reject"
+
   </script>
 </body>
 </html>
