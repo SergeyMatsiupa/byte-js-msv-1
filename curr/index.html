@@ -695,6 +695,17 @@
 
 
 
+  <!-- <dialog id="dialog">
+    <form method="dialog">
+      <p>Would you like to continue?</p>
+      <button type="submit" value="no">No</button>
+      <button type="submit" value="yes">Yes</button>
+    </form>
+  </dialog> -->
+  
+
+
+
   <script>
     // let table = document.body.firstElementChild;
 
@@ -1937,6 +1948,281 @@ class HoverIntent {
 
   //Выведет:
   //"reject"
+
+
+
+  let obj = {};
+
+  function A() { return obj; }
+  function B() { return obj; }
+
+  let a = new A;
+  let b = new B;
+
+  // alert( a == b );
+
+
+
+  function Calculator() {
+    this.read = function() {
+      this.operand1 = +prompt('Enter the Operand 1');
+      this.operand2 = +prompt('Enter the Operand 2');
+    };
+    this.sum = function() {
+      return this.operand1 + this.operand2;
+    }
+    this.mul = function() {
+      return this.operand1 * this.operand2;
+    }
+  }
+  
+  let calculator = new Calculator();
+  // calculator.read();
+
+  // alert( "Sum=" + calculator.sum() );
+  // alert( "Mul=" + calculator.mul() );
+
+
+
+  function Accumulator (initialValue) {
+    this.value = initialValue;
+    this.read = function () {
+      this.value += +prompt("Enter the value");
+    }
+  }
+  
+  let accumulator = new Accumulator(1); // начальное значение 1
+
+  // accumulator.read(); // прибавит ввод prompt к текущему значению
+  // accumulator.read(); // прибавит ввод prompt к текущему значению
+
+  // alert(accumulator.value); // выведет сумму этих значений
+
+
+
+  let head = {
+    glasses: 1
+  };
+
+  let table = {
+    pen: 3,
+    __proto__: head,
+  };
+
+  let bed = {
+    sheet: 1,
+    pillow: 2,
+    __proto__: table,
+  };
+
+  let pockets = {
+    money: 2000,
+    __proto__: bed,
+  };
+
+  console.log('pockets.pen', pockets.pen);
+  console.log('bed.glasses', bed.glasses);
+
+
+
+  let animal = {
+  eat() {
+      this.full = true;
+    }
+  };
+
+  let rabbit = {
+    __proto__: animal
+  };
+
+  rabbit.eat();
+  console.log('rabbit.full', rabbit.full);
+
+
+
+  let hamster = {
+    stomach: [],
+
+    eat(food) {
+      // this.stomach.push(food);
+      this.stomach = [...this.stomach,food];
+    }
+  };
+
+  let speedy = {
+    __proto__: hamster
+  };
+
+  let lazy = {
+    __proto__: hamster
+  };
+
+  // Этот хомяк нашёл еду
+  speedy.eat("apple");
+  speedy.eat("shit");
+  // alert( speedy.stomach ); // apple
+
+  // У этого хомяка тоже есть еда. Почему? Исправьте
+  // alert( lazy.stomach ); // apple
+
+
+
+  function Rabbit() {}
+  Rabbit.prototype = {
+    eats: true
+  };
+
+  let rabbit1 = new Rabbit();
+
+  // Rabbit.prototype = {};
+  delete Rabbit.prototype.eats;
+
+  // alert( rabbit1.eats );
+
+
+  function Mobj() {
+    Mobj.prototype = {
+      jumps: true
+    };
+  }
+
+  let obj1 = new Mobj();
+  let obj2 = new obj1.constructor();
+    console.log('obj2', obj2);
+
+
+  let obj11 = {};
+  console.log('obj11', obj11);
+
+
+  
+  // function f() {
+  //   alert("Hello!");
+  // }
+  // f.prototype.defer = function(time) {
+  //   setTimeout(f, time);
+  // }
+
+  // f.defer(1000); // выведет "Hello!" через 1 секунду
+
+
+  function f11(a, b) {
+    alert( a + b );
+  };
+  // Function.prototype.defer1 = function(ms) {
+  f11.defer1 = function(ms) {
+    let f = this;
+    return function(...args) {
+      setTimeout(() => {f.apply(this, args)}, ms);
+    }
+  };
+
+  // f11.defer1(1000)(1, 2); // выведет 3 через 1 секунду.
+
+
+
+  let dictionary = Object.create(null);
+
+  dictionary.toString = function() {
+    let rez = [];
+    for (let key in dictionary) {
+      rez.push(key)
+    }
+    return rez.join(',');
+  }
+  Object.defineProperty(dictionary, "toString", {
+    enumerable: false
+    });
+    // console.log('dictionary.toString', Object.getOwnPropertyDescriptor(dictionary, 'toString'));
+
+  // добавляем немного данных
+  dictionary.apple = "Apple";
+  dictionary.__proto__ = "test"; // здесь __proto__ -- это обычный ключ
+
+  // только apple и __proto__ выведены в цикле
+  for(let key in dictionary) {
+    // alert(key); // "apple", затем "__proto__"
+  }
+
+  // ваш метод toString в действии
+  // alert(dictionary); // "apple,__proto__"
+  
+  
+  
+  
+    // var dialog = document.getElementById('dialog');
+    // dialog.showModal();
+    // dialog.addEventListener('close', function (event) {
+    //   if (dialog.returnValue === 'yes') { 
+    //     alert("Hurra!!!")
+    //    }
+    // });
+
+
+
+    function Rabbit(name) {
+      this.name = name;
+    }
+    Rabbit.prototype.sayHi = function() {
+      // alert(this.name);
+    };
+
+    let rabbit11 = new Rabbit("Rabbit");
+
+    // rabbit.sayHi();                        // Rabbit
+    // Rabbit.prototype.sayHi();              // undefined
+    // Object.getPrototypeOf(rabbit).sayHi(); // undefined
+    // rabbit.__proto__.sayHi();              // undefined
+
+
+
+    function Person(first, last, age, gender, interests) {
+      this.name = {
+        first,
+        last
+      };
+      this.age = age;
+      this.gender = gender;
+      this.interests = interests;
+    };
+
+    Person.prototype.greeting = function() {
+      alert('Hi! I\'m ' + this.name.first + '.');
+    };
+    Person.prototype.farewell = function() {
+        alert(this.name.first + ' has left the building. Bye for now!');
+      }
+
+    const ppp1 = new Person('Fucker');
+    // ppp1.greeting();
+
+    function Teacher(first, last, age, gender, interests, subject) {
+      Person.call(this, first, last, age, gender, interests);
+
+      this.subject = subject;
+    }
+    Teacher.prototype = Object.create(Person.prototype);
+    
+    Teacher.prototype.greeting = function() {
+      var prefix;
+
+      if (this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+        prefix = 'Mr.';
+      } else if (this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+        prefix = 'Mrs.';
+      } else {
+        prefix = 'Mx.';
+      }
+
+      alert('Hello. My name is ' + prefix + ' ' + this.name.last + ', and I teach ' + this.subject + '.');
+    };
+
+    teacher1 = new Teacher("Lecter");
+    console.log('teacher1', teacher1);
+
+    console.log('Object.getOwnPropertyNames(Person.prototype)', Object.getOwnPropertyNames(Person.prototype));
+    console.log('Object.getOwnPropertyNames(Teacher.prototype)', Object.getOwnPropertyNames(Teacher.prototype));
+
 
   </script>
 </body>
