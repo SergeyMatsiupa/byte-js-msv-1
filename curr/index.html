@@ -2224,6 +2224,59 @@ class HoverIntent {
     console.log('Object.getOwnPropertyNames(Teacher.prototype)', Object.getOwnPropertyNames(Teacher.prototype));
 
 
+
+
+    class Clock {
+      // timer = null;
+      // template = "";
+      constructor({ template }) {
+        this.template = template;
+        // alert(this.template)
+      }
+      render() {
+          // console.log('this', this);
+        let date = new Date();
+  
+        let hours = date.getHours();
+        if (hours < 10) hours = '0' + hours;
+
+        let mins = date.getMinutes();
+        if (mins < 10) mins = '0' + mins;
+
+        let secs = date.getSeconds();
+        if (secs < 10) secs = '0' + secs;
+
+        let output = this.template
+          .replace('h', hours)
+          .replace('m', mins)
+          .replace('s', secs);
+
+        console.log(output);
+      }
+      stop() {
+        clearInterval(this.timer);
+      }
+      start() {
+        this.render();
+        this.timer = setInterval(this.render.bind(this), 1000);
+      }
+    }
+
+    // let clock = new Clock({template: 'h:m:s'});
+    // clock.start();
+
+
+
+    class Rabbit11 extends Object {
+      constructor(name) {
+        super();
+        this.name = name;
+      }
+    }
+
+    let rabbit111 = new Rabbit11("Кроль");
+
+    alert( rabbit111.hasOwnProperty('name') );
   </script>
 </body>
 </html>
